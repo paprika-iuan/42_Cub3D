@@ -18,7 +18,7 @@ static void	ft_hook(void *param)
 	t_game	*game;
 
 	game = (t_game *)param;
-	memset(game->img->pixels, 0,
+	ft_memset(game->img->pixels, 0,
 		game->img->width * game->img->height * 4);
 	game->i = 0;
 	init_ray(game);

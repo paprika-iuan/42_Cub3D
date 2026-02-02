@@ -28,6 +28,13 @@
 # define MOVE_SPEED 0.1f
 # define ROT_SPEED 0.05f
 
+// Error messages
+#define ERR_USAGE "Usage: ./cub3d <config_file.cub>\n"
+#define ERR_INVALID_EXTENSION "Invalid config file extension\n"
+#define ERR_FILE_NOT_FOUND "Error: config file does not exist\n"
+#define ERR_PERMISSION_DENIED "Error: Permission denied for config file\n"
+#define ERR_CANNOT_OPEN_FILE "Error: Cannot open config file\n"
+
 typedef struct s_player
 {
 	float	x;
@@ -81,6 +88,9 @@ typedef struct s_game
 	int			screen_h;
 	int			i;
 }	t_game;
+
+//////validate_args.c
+void	validate_args(int argc, char **argv);
 
 //////rend_main.c
 int			run_render(t_game *game);

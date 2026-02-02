@@ -111,7 +111,7 @@ void	check_colision(t_game *game, float new_x, float new_y)
 	mx = (int)new_x;
 	my = (int)new_y;
 	if (my >= 0 && game->map[my] != NULL
-		&& mx >= 0 && mx < (int)strlen(game->map[my])
+		&& mx >= 0 && mx < (int)ft_strlen(game->map[my])
 		&& game->map[my][mx] != '1')
 	{
 		game->player.x = new_x;

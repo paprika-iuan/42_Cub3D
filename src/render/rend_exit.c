@@ -14,6 +14,7 @@
 
 void	ft_error(void)
 {
+	// CANVIAR
 	fprintf(stderr, "%s", mlx_strerror(mlx_errno));
 	exit(EXIT_FAILURE);
 }

@@ -1,0 +1,7 @@
+textures/
+lib/MLX42/
+obj/
+cub3d
+*.o
+*.a
+.DS_Store
