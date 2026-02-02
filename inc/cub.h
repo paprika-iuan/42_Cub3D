@@ -22,7 +22,7 @@
 # include <math.h>
 # include <string.h>
 # include <sys/time.h>
-# include "libft.h"
+# include "../lib/libft/libft.h"
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # define TILE_SIZE 64
 # define MOVE_SPEED 0.1f

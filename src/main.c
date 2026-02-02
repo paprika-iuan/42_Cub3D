@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub.h"
+#include "../inc/cub.h"
 
 static void	load_textures(t_game *game)
 {
