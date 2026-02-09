@@ -1,6 +1,11 @@
 NAME	=	cub3d
 SRC		=	src/main.c \
-			src/parser/validate_args.c \
+			src/parser/parser.c \
+			src/parser/parse_info.c \
+			src/parser/parse_textures.c \
+			src/parser/parse_colors.c \
+			src/parser/parse_map.c \
+			src/parser/validate_map.c \
 			src/render/rend_main.c \
 			src/render/rend_move.c \
 			src/render/rend_pos.c \
@@ -18,7 +23,7 @@ OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 DEP = $(SRC:%.c=$(OBJ_DIR)/%.d)
 
 CC = cc
-CCFLAGS = -Wall -Wextra -Werror -g -Wunreachable-code -O3 #-fsanitize=address
+CCFLAGS = -Wall -Wextra -Werror -g -Wunreachable-code -O3 -fsanitize=address
 
 INCLUDES = -I$(LIBFT_DIR) -I$(LIBMLX)/include
 LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
@@ -37,7 +42,7 @@ libft:
 libmlx:
 	cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
-$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: %.c | Makefile $(OBJ_DIR)
 	mkdir -p $(dir $@)
 	$(CC) $(CCFLAGS) -MMD -MP $(INCLUDES) -c $< -o $@
 

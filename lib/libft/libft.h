@@ -55,6 +55,7 @@ void		ft_putchar_fd(char c, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
 void		ft_putstr_fd(char *s, int fd);
+int			ft_safe_atoi(const char *str, int *result);
 char		**ft_split(char const *s, char c);
 char		*ft_strchr(const char *s, int c);
 char		*ft_strdup(const char *s);
@@ -81,5 +82,6 @@ int			ft_printnbr_base(int nbr, char *base);
 int			ft_printnbr_base_u(uintptr_t nbr, char *base);
 int			ft_printf(const char *str, ...);
 int			is_valid_long(const char *str);
+int			is_line_empty(char *line);
 
 #endif

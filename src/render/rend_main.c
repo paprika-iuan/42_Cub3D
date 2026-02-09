@@ -67,12 +67,12 @@ int	run_render(t_game *game)
 	player_start(game);
 	game->mlx = mlx_init(game->screen_w, game->screen_h, "Cub3D", false);
 	if (!game->mlx)
-		ft_error();
+		exit_error((char *)mlx_strerror(mlx_errno), game);
 	game->img = mlx_new_image(game->mlx, game->screen_w, game->screen_h);
 	if (!game->img)
-		ft_error();
+		exit_error((char *)mlx_strerror(mlx_errno), game);
 	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
-		ft_error();
+		exit_error((char *)mlx_strerror(mlx_errno), game);
 	mlx_loop_hook(game->mlx, ft_hook, game);
 	mlx_key_hook(game->mlx, key_hooks, game);
 	mlx_loop(game->mlx);

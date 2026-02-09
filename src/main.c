@@ -12,63 +12,59 @@
 
 #include "../inc/cub.h"
 
-// static void	load_textures(t_game *game)
-// {
-// 	game->textures.n = mlx_load_png("./textures/north.png");
-// 	game->textures.s = mlx_load_png("./textures/south.png");
-// 	game->textures.e = mlx_load_png("./textures/east.png");
-// 	game->textures.w = mlx_load_png("./textures/west.png");
-// 	if (!game->textures.n || !game->textures.s
-// 		|| !game->textures.e || !game->textures.w)
-// 	{
-// 		ft_putstr_fd("Textura mal. Tete! Espabila!\n", 2);
-// 		exit(1);
-// 	}
-// 	game->textures.floor = 0x808080FF;
-// 	game->textures.sky = 0x87CEEBFF;
-// }
+void	free_wall_paths(t_game *game)
+{
+	int	i;
 
-// static void	init_structs(t_game *game)
-// {
-// 	static char	*map[] = {
-// 	"11111111",
-// 	"10000001",
-// 	"10000001",
-// 	"100S0001",
-// 	"10000001",
-// 	"10010001",
-// 	"11111111",
-// 	NULL
-// 	};
+	i = 0;
+	while (i < 4)
+	{
+		free(game->wall_paths[i]);
+		i++;
+	}
+}
 
-// 	game->mlx = NULL;
-// 	game->img = NULL;
-// 	game->player.x = 0;
-// 	game->player.y = 0;
-// 	game->player.dir_x = 0;
-// 	game->player.dir_y = 0;
-// 	game->player.plane_x = 0;
-// 	game->player.plane_y = 0.6f;
-// 	game->map = map;
-// 	game->i = 0;
-// 	game->map_width = 8;
-// 	game->map_height = 7;
-// 	game->screen_w = 800;
-// 	game->screen_h = 600;
-// 	load_textures(game);
-// }
+void	exit_error(char *msg, t_game *game)
+{
+	if (game)
+	{
+		if (game->config_line)
+		{
+			while (game->config_line)
+			{
+				free(game->config_line);
+				game->config_line = get_next_line(game->config_fd);
+			}
+		}
+		close(game->config_fd);
+		free_wall_paths(game);
+		free_textures(game);
+		if (game->map)
+			free_matrix(game->map);
+		free(game);
+	}
+	ft_putstr_fd("Error: ", STDERR_FILENO);
+	if (msg)
+		ft_putstr_fd(msg, STDERR_FILENO);
+	else
+		ft_putstr_fd(ERR_UNKNOWN, STDERR_FILENO);
+	exit(EXIT_FAILURE);
+}
 
 int	main(int argc, char **argv)
 {
 	t_game	*game;
 
-	validate_args(argc, argv);
+	if (argc != 2)
+		exit_error(ERR_USAGE, NULL);
 	game = malloc(sizeof(t_game));
 	if (!game)
 		return (EXIT_FAILURE);
-	// init_structs(game);
-	// run_render(game);
-	// free_textures(game);
+	parser(game, argv);
+	run_render(game);
+	free_wall_paths(game);
+	free_textures(game);
+	free_matrix(game->map);
 	free(game);
 	return (EXIT_SUCCESS);
 }
